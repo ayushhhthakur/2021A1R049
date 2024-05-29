@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
 const app = express();
 const PORT = 9876;
@@ -9,16 +10,18 @@ const auth_token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMi
 
 const numberTypeUrls = {
   'p': 'http://20.244.56.144/test/primes',
-  'T': 'http://20.244.56.144/test/fibo',
+  'f': 'http://20.244.56.144/test/fibo',
   'e': 'http://20.244.56.144/test/even',
   'r': 'http://20.244.56.144/test/rand'
 };
+
+app.use(cors());
 
 app.get('/numbers/:numberId', async (req, res) => {
   const numberId = req.params.numberId;
 
   if (!numberTypeUrls[numberId]) {
-    return res.status(400).send({ error: "Invalid number ID. Use 'p' for primes, 'T' for Fibonacci, 'e' for even, 'r' for random." });
+    return res.status(400).send({ error: "Invalid number ID. Use 'p' for primes, 'f' for Fibonacci, 'e' for even, 'r' for random." });
   }
 
   const url = numberTypeUrls[numberId];
