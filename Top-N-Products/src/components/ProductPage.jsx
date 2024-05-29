@@ -17,32 +17,28 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="welcome-container">
-      <h1 className="welcome-title">Welcome to the HappyMart</h1>
-      <form className="welcome-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">
-            Select Company:
-            <select className="form-select" value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)}>
-              <option value="">Select a company</option>
-              {companies.map(company => (
-                <option key={company} value={company}>{company}</option>
-              ))}
-            </select>
-          </label>
+    <div className="container">
+      <h1 className="mt-5">Select company and category</h1>
+      <form className="mt-3" onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="companySelect" className="form-label">Select Company:</label>
+          <select id="companySelect" className="form-select" value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)}>
+            <option value="">Select a company</option>
+            {companies.map(company => (
+              <option key={company} value={company}>{company}</option>
+            ))}
+          </select>
         </div>
-        <div className="form-group">
-          <label className="form-label">
-            Select Category:
-            <select className="form-select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-              <option value="">Select a category</option>
-              {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
-              ))}
-            </select>
-          </label>
+        <div className="mb-3">
+          <label htmlFor="categorySelect" className="form-label">Select Category:</label>
+          <select id="categorySelect" className="form-select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+            <option value="">Select a category</option>
+            {categories.map(category => (
+              <option key={category} value={category}>{category}</option>
+            ))}
+          </select>
         </div>
-        <button className="form-button" type="submit">Search Products</button>
+        <button className="btn btn-primary" type="submit">Search Products</button>
       </form>
     </div>
   );
