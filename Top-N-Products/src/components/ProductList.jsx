@@ -22,7 +22,7 @@ const ProductList = () => {
         const response = await axios.get(`/categories/${categoryname}/products`, {
           params: { n, page, sort, order, company: selectedCompany }
         });
-        console.log('Response data:', response.data);
+        console.log('Response data:', response.data); 
         if (Array.isArray(response.data)) {
           setProducts(response.data);
         } else {
