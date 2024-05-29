@@ -3,36 +3,49 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-    const [type, setType] = useState('e');
-    const [response, setResponse] = useState(null);
+  const [numberId, setNumberId] = useState('');
+  const [response, setResponse] = useState(null);
 
-    const fetchNumbers = async () => {
-        try {
-            const res = await axios.get(`http://localhost:9876/numbers/${type}`);
-            setResponse(res.data);
-        } catch (error) {
-            console.error('Error fetching numbers:', error);
-        }
-    };
+  const fetchNumbers = async () => {
+    try {
+      const res = await axios.get(`http://localhost:9876/numbers/${numberId}`);
+      setResponse(res.data);
+    } catch (error) {
+      console.error("Error fetching numbers:", error);
+    }
+  };
 
-    return (
-        <div className="App">
-            <h1>Average Calculator</h1>
-            <select value={type} onChange={(e) => setType(e.target.value)}>
-                <option value="p">Prime</option>
-                <option value="t">Fibonacci</option>
-                <option value="e">Even</option>
-                <option value="r">Random</option>
-            </select>
-            <button onClick={fetchNumbers}>Fetch Numbers</button>
-            {response && (
-                <div>
-                    <h2>Response</h2>
-                    <pre>{JSON.stringify(response, null, 2)}</pre>
-                </div>
-            )}
+  const handleFetch = () => {
+    if (numberId) {
+      fetchNumbers();
+    }
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Average Calculator</h1>
+        <div>
+          <input
+            type="text"
+            placeholder="Enter number ID (p, T, e, r)"
+            value={numberId}
+            onChange={(e) => setNumberId(e.target.value)}
+          />
+          <button onClick={handleFetch}>Fetch Numbers</button>
         </div>
-    );
+        {response && (
+          <div className="response">
+            <h2>Response</h2>
+            <p><strong>Previous State:</strong> {JSON.stringify(response.windowPrevState)}</p>
+            <p><strong>Current State:</strong> {JSON.stringify(response.windowCurrState)}</p>
+            <p><strong>Fetched Numbers:</strong> {JSON.stringify(response.numbers)}</p>
+            <p><strong>Average:</strong> {response.avg}</p>
+          </div>
+        )}
+      </header>
+    </div>
+  );
 }
 
 export default App;
