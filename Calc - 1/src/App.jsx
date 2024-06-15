@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [numberId, setNumberId] = useState('');
+  const [typeId, setTypeId] = useState('');
   const [response, setResponse] = useState(null);
   const [error, setError] = useState('');
 
-  const fetchNumbers = async () => {
+  const fetchType = async () => {
     try {
-      const res = await axios.get(`http://localhost:9876/numbers/${numberId}`);
+      const res = await axios.get(`http://localhost:9876/test/${typeId}`);
       setResponse(res.data);
       setError('');
     } catch (error) {
-      console.error("Error fetching numbers:", error);
-      setError('Error fetching numbers. Please try again later.');
+      console.error("Error fetching data:", error);
+      setError('Error fetching data. Please try again later.');
     }
   };
 
   const handleFetch = () => {
-    if (numberId) {
-      fetchNumbers();
+    if (typeId) {
+      fetchType();
     }
   };
 
@@ -30,10 +30,10 @@ function App() {
         <div className="form-group">
           <select
             className="form-control"
-            value={numberId}
-            onChange={(e) => setNumberId(e.target.value)}
+            value={typeId}
+            onChange={(e) => setTypeId(e.target.value)}
           >
-            <option value="">Select number ID</option>
+            <option value="">Select ID</option>
             <option value="p">Primes</option>
             <option value="f">Fibonacci</option>
             <option value="e">Even</option>
@@ -41,7 +41,7 @@ function App() {
           </select>
         </div>
         <div className="text-center mt-3">
-          <button className="btn btn-primary" onClick={handleFetch}>Fetch Numbers</button>
+          <button className="btn btn-primary" onClick={handleFetch}>Fetch Data</button>
         </div>
         {error && (
           <div className="alert alert-danger mt-3" role="alert">
